@@ -1,0 +1,144 @@
+{
+    "restaurants": [
+    {
+        "place_id": 0,
+        "name": "Park Cafe",
+        "vicinity": "39 Retail Park, 75010 Dundalk",
+        "lat": 54.002070,
+        "lng": -6.3990479,
+        "rating": 3.4,
+        "ratings": [
+        {
+            "stars": 4,
+            "comment": "Great! But not many veggie options."
+        },
+        {
+            "stars": 1,
+            "comment": "My favorite restaurant!"
+        }],
+        "geometry": [
+        {
+            "location": [
+            {
+                "lat": 54.002070,
+                "lng": -6.3990479
+            },
+            {
+                "latlng": [54.002070,-6.3990479]
+            }]
+        }]
+
+    },
+    {
+        "place_id": 1,
+        "name": "Roma",
+        "vicinity": "4 Main St, 75018 Dundalk",
+        "lat": 53.993510,
+        "lng": -6.4037427,
+        "rating": 4,
+        "ratings": [
+        {
+            "stars": 5,
+            "comment": "Tiny pizzeria next to Sacre Coeur!"
+        },
+        {
+            "stars": 3,
+            "comment": "Meh, it was fine."
+        }],
+        "geometry": [
+        {
+            "location": [
+            {
+                "lat": 53.993510,
+                "lng": -6.4037427
+            },
+            {
+                "latlng": [53.993510,-6.4037427]
+            }]
+        }]
+    },
+    {
+        "place_id": 2,
+        "name": "Clermont",
+        "vicinity": "12 blackrock, 75228 Dundalk",
+        "lat": 54.003510,
+        "lng": -6.4037427,
+        "rating": 2.8,
+        "ratings": [
+        {
+            "stars": 5,
+            "comment": "Tiny pizzeria next to Sacre Coeur!"
+        },
+        {
+            "stars": 4,
+            "comment": "Pretty good."
+        }],
+        "geometry": [
+        {
+            "location": [
+            {
+                "lat": 54.003510,
+                "lng": -6.4037427
+            },
+            {
+                "latlng": [54.003510,-6.4037427]
+            }]
+        }]
+    },
+    {
+        "place_id": 3,
+        "name": "Mullins",
+        "vicinity": "7 Avenue rd, 15018 Dundalk",
+        "lat": 54.0043521,
+        "lng": -6.4146738,
+        "rating": 4.5,
+        "ratings": [
+        {
+            "stars": 5,
+            "comment": "Tiny pizzeria next to Sacre Coeur!"
+        },
+        {
+            "stars": 3,
+            "comment": "Meh, it was fine."
+        }],
+        "geometry": [
+        {
+            "location": [
+            {
+                "lat": 54.0043521,
+                "lng": -6.4146738
+            },
+            {
+                "latlng": [54.0043521,-6.4146738]
+            }]
+        }]
+    },
+    {
+        "place_id": 4,
+        "name": "Neptune",
+        "vicinity": "43 blackrock, 31228 Dundalk",
+        "lat": 54.013510,
+        "lng": -6.4007427,
+        "rating": 3.2,
+        "ratings": [
+        {
+            "stars": 5,
+            "comment": "Tiny pizzeria next to Sacre Coeur!"
+        },
+        {
+            "stars": 4,
+            "comment": "Pretty good."
+        }],
+        "geometry": [
+        {
+            "location": [
+            {
+                "lat": 54.013510,
+                "lng": -6.4007427
+            },
+            {
+                "latlng": [54.013510,-6.4007427]
+            }]
+        }]
+    }]
+}
