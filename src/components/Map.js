@@ -5,6 +5,7 @@ export default class Map extends Component {
         mapCenter: { lat: 53.999980, lng: -6.403740 },
         map: null,
         newPlace: {},
+        newCenter: {},
         activePlace: {}
     };
     componentDidMount = () => {
@@ -13,26 +14,33 @@ export default class Map extends Component {
             zoom: 14,
             mapTypeId: "roadmap"
         });
-        map.addListener("click", event => {
-      const latLng = String(event.latLng)
-        .replace(" ", "")
-        .replace("(", "")
-        .replace(")", "")
-        .split(",");
-
-      this.setState({
-        newPlace: {
-          geometry: {
-            location: {
-              lat: Number(latLng[0]),
-              lng: Number(latLng[1])
-            }
-          }
-        }
-      });
-    });
 
         this.setState({ map });
+
+        map.addListener("click", event => {
+            const mapCenter = {
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng()
+            }
+            console.log(mapCenter);
+
+            this.setState({
+                mapCenter: { mapCenter }
+            });
+            map.panTo(mapCenter);
+            let service = new window.google.maps.places.PlacesService(map);
+            service.nearbySearch({
+                    location: mapCenter,
+                    radius: "1500",
+                    type: ["restaurant"]
+                },
+                (results, status) => {
+                    this.props.fetchPlaces(results);
+                    // console.log("places", results);
+                }
+            );
+
+        });
 
         navigator.geolocation.getCurrentPosition(position => {
             const mapCenter = {

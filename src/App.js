@@ -31,10 +31,9 @@ class App extends Component {
   }
 
   fetchPlaces = places => {
-    places.map(place =>{
     this.setState({
-  places: [...this.state.places, place]
-})})
+  places: places
+})
 
     // console.log(this.state.places)
   };
