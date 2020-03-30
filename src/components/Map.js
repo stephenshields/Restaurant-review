@@ -6,7 +6,8 @@ export default class Map extends Component {
         map: null,
         newPlace: {},
         newCenter: {},
-        activePlace: {}
+        activePlace: {},
+        markers: []
     };
     componentDidMount = () => {
         let map = new window.google.maps.Map(this.refs.map, {
@@ -16,6 +17,15 @@ export default class Map extends Component {
         });
 
         this.setState({ map });
+
+        const clearMarkers = () => {
+            let markers = this.state.markers;
+
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            markers.length = 0;
+        };
 
         map.addListener("click", event => {
             const mapCenter = {
@@ -27,7 +37,9 @@ export default class Map extends Component {
             this.setState({
                 mapCenter: { mapCenter }
             });
+            clearMarkers();
             map.panTo(mapCenter);
+
             let service = new window.google.maps.places.PlacesService(map);
             service.nearbySearch({
                     location: mapCenter,
@@ -101,8 +113,10 @@ export default class Map extends Component {
         });
     }
 
+
     createMarkers = (places, map) => {
         // console.log("place", places);
+        let markers = [];
 
         for (var i = 0, place;
             (place = places[i]); i++) {
@@ -130,6 +144,10 @@ export default class Map extends Component {
                 infoWindow.open(map, marker);
                 map.panTo(marker.getPosition());
             });
+
+            markers.push(marker);
+            window.google.maps.event.addListener(marker, "click", function() {});
+            this.setState({ markers: markers });
 
         }
     };
