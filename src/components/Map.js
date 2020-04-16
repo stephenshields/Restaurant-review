@@ -27,10 +27,10 @@ export default class Map extends Component {
             markers.length = 0;
         };
 
-        map.addListener("click", event => {
+        map.addListener("dragend", event => {
             const mapCenter = {
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng()
+                lat: map.getCenter().lat(),
+                lng: map.getCenter().lng()
             }
             console.log(mapCenter);
 
@@ -38,8 +38,7 @@ export default class Map extends Component {
                 mapCenter: { mapCenter }
             });
             clearMarkers();
-            map.panTo(mapCenter);
-
+            
             let service = new window.google.maps.places.PlacesService(map);
             service.nearbySearch({
                     location: mapCenter,
@@ -134,6 +133,7 @@ export default class Map extends Component {
             <h2>${place.name}</h2>
             <p>${place.vicinity}</p>
           `;
+          console.log(place)
 
             const infoWindow = new window.google.maps.InfoWindow({
                 content: placeContent

@@ -15,6 +15,7 @@ export default class SideBar extends Component {
             name={restaurant.name} 
             rating={restaurant.rating}
             address={restaurant.vicinity}
+            geometry={restaurant.geometry}
             />
             )
         })
