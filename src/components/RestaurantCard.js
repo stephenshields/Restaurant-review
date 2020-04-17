@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import {Card} from 'react-bootstrap'
+import React, { Component } from 'react'
+import { Card } from 'react-bootstrap'
 import Stars from '../components/Stars'
 
-function RestaurantCard(props) {
-	const [details, setDetails] = useState(null);
-	console.log(props)
-	// console.log(props.geometry[0].location[0].lat)
-	let image = null;
+class RestaurantCard extends Component {
+    state = {
+        details: {},
+    };
 
-	useEffect(() => {
-		return () => {
-		 image = props.geometry
-		};
-	})
-console.log("image " + image)
+    componentDidMount = () => {
 
-	const handleClick = () => {
-		console.log('hello')
 	}
 
-  return (
-    <div  
+
+    render() {
+        return (
+            <div  
     style={{padding: '.3em'}}
     >
     <Card 
@@ -29,16 +23,16 @@ console.log("image " + image)
     >
 	  <Card.Body 
 	  style={{cursor: 'pointer'}} 
-	  onClick={handleClick}
 	  >
-	    <Card.Title>{props.name}</Card.Title>
-	    <Stars rating={props.rating}/>
-	    <Card.Text>{props.address}</Card.Text>
-	    <Card.Img src={"https://maps.googleapis.com/maps/api/streetview?location=" + image.location.lat + "," + image.location.lng +"&size=600x400&key=AIzaSyAFgDq1kt_7e-81aC8_hmRIZhEuxCZQyoI&libraries=places"}/> 
+	    <Card.Title>{this.props.name}</Card.Title>
+	    <Stars rating={this.props.rating}/>
+	    <Card.Text>{this.props.address}</Card.Text>
+	    <Card.Img src={"https://maps.googleapis.com/maps/api/streetview?location=" + this.props.address +"&size=360x180&key=AIzaSyAFgDq1kt_7e-81aC8_hmRIZhEuxCZQyoI&libraries=places"}/> 
 	  </Card.Body>
 	</Card>
     </div>
-  )
+        )
+    }
 }
 
 export default RestaurantCard

@@ -9,6 +9,7 @@ export default class SideBar extends Component {
             // for (var i = 0; i < restaurant.ratings.length; i++) { 
             //   averageRating = averageRating += restaurant.ratings[i].stars
             // }
+            console.log(restaurant)
             return (
                 <RestaurantCard 
             key={restaurant.place_id}
