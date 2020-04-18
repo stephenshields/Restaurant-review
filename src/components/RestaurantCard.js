@@ -4,18 +4,23 @@ import Stars from '../components/Stars'
 
 class RestaurantCard extends Component {
     state = {
-        details: {},
+        clicked:false
     };
 
     componentDidMount = () => {
 
 	}
 
+	handleClick = () => {
+		{this.state.clicked ? this.setState({clicked:false}) : this.setState({clicked:true})}
+		console.log(this.state.clicked)
+	}
 
     render() {
         return (
             <div  
     style={{padding: '.3em'}}
+    onClick={this.handleClick}
     >
     <Card 
     style={{backgroundColor: '#21242b'}} 
@@ -27,7 +32,10 @@ class RestaurantCard extends Component {
 	    <Card.Title>{this.props.name}</Card.Title>
 	    <Stars rating={this.props.rating}/>
 	    <Card.Text>{this.props.address}</Card.Text>
-	    <Card.Img src={"https://maps.googleapis.com/maps/api/streetview?location=" + this.props.address +"&size=360x180&key=AIzaSyAFgDq1kt_7e-81aC8_hmRIZhEuxCZQyoI&libraries=places"}/> 
+	    {this.state.clicked &&
+	    <Card.Img src={"https://maps.googleapis.com/maps/api/streetview?location=" + this.props.address +
+	    "&size=360x180&key=AIzaSyAFgDq1kt_7e-81aC8_hmRIZhEuxCZQyoI&libraries=places"}/>
+	    } 
 	  </Card.Body>
 	</Card>
     </div>
