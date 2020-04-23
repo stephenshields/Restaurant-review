@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Card, Accordion } from 'react-bootstrap'
 import RestaurantCard from '../components/RestaurantCard'
 
 export default class SideBar extends Component {  
@@ -17,12 +18,14 @@ export default class SideBar extends Component {
             rating={restaurant.rating}
             address={restaurant.vicinity}
             geometry={restaurant.geometry}
+            cardId={restaurant.place_id}
             />
             )
         })
-        // console.log(restaurants)
+         console.log(restaurants)
 
         return (
+          <Accordion >
             <div 
           style={{
           width: '100%',
@@ -32,6 +35,7 @@ export default class SideBar extends Component {
           }}>
           {restaurants}
           </div>
+          </Accordion>
         )
     }
 }

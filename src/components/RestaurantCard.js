@@ -1,19 +1,12 @@
 import React, { Component } from 'react'
-import { Card } from 'react-bootstrap'
+import { Card, Accordion } from 'react-bootstrap'
 import Stars from '../components/Stars'
 
 class RestaurantCard extends Component {
-    state = {
-        clicked:false
-    };
+
 
     componentDidMount = () => {
 
-	}
-
-	handleClick = () => {
-		{this.state.clicked ? this.setState({clicked:false}) : this.setState({clicked:true})}
-		console.log(this.state.clicked)
 	}
 
     render() {
@@ -26,17 +19,17 @@ class RestaurantCard extends Component {
     style={{backgroundColor: '#21242b'}} 
     text='white'
     >
-	  <Card.Body 
+	  <Accordion.Toggle as={Card.Body} variant="link" eventKey={this.props.cardId} 
 	  style={{cursor: 'pointer'}} 
 	  >
 	    <Card.Title>{this.props.name}</Card.Title>
 	    <Stars rating={this.props.rating}/>
 	    <Card.Text>{this.props.address}</Card.Text>
-	    {this.state.clicked &&
+	    <Accordion.Collapse eventKey={this.props.cardId}>
 	    <Card.Img src={"https://maps.googleapis.com/maps/api/streetview?location=" + this.props.address +
 	    "&size=360x180&key=AIzaSyAFgDq1kt_7e-81aC8_hmRIZhEuxCZQyoI&libraries=places"}/>
-	    } 
-	  </Card.Body>
+	    </Accordion.Collapse>
+		  </Accordion.Toggle>
 	</Card>
     </div>
         )

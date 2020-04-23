@@ -79,7 +79,7 @@ export default class Map extends Component {
     };
 
     componentWillReceiveProps = nextProps => {
-        console.log("props", nextProps.places);
+        //console.log("props", nextProps.places);
         this.createMarkers(nextProps.places, this.state.map);
     };
 
@@ -133,7 +133,7 @@ export default class Map extends Component {
             <h2>${place.name}</h2>
             <p>${place.vicinity}</p>
           `;
-          console.log(place)
+          //console.log(place)
 
             const infoWindow = new window.google.maps.InfoWindow({
                 content: placeContent
