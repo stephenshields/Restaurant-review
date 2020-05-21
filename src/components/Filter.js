@@ -10,7 +10,7 @@ class Filter extends Component {
             filter: 0
         };
     };
-
+// Setting the filter to the selected star
     changeRating(newFilter) {
         this.setState({ filter: newFilter });
         this.props.setFilter(newFilter);

@@ -3,7 +3,7 @@ import { Form, Button,Modal } from 'react-bootstrap';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-
+//Yup validation
 const validationSchema = Yup.object().shape({
   name: Yup.string()
   .min(2, "*Names must have at least 2 characters")

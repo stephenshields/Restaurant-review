@@ -19,10 +19,12 @@ export default class Map extends Component {
             zoom: 14,
             mapTypeId: "roadmap"
         });
-
+        //initialising the map
         this.setState({ map });
 
+        //updates the places when dragged
         map.addListener("dragend", event => {
+            //Construct and set new center 
             const mapCenter = {
                 lat: map.getCenter().lat(),
                 lng: map.getCenter().lng()
@@ -31,6 +33,7 @@ export default class Map extends Component {
 
             this.setState({ mapCenter });
 
+            // retrieves all nearby restaurants within the stated radius and sends results to App.js
             let service = new window.google.maps.places.PlacesService(map);
             service.nearbySearch({
                     location: mapCenter,
@@ -45,6 +48,7 @@ export default class Map extends Component {
 
         });
 
+        //when map is clicked, set location and display modal 
         map.addListener("click", event => {
             const location = {
                 lat: event.latLng.lat(),
@@ -60,6 +64,7 @@ export default class Map extends Component {
             console.log(this.state.modalShow)
         })
 
+        //Find user location and set it to mapCenter
         navigator.geolocation.getCurrentPosition(position => {
             const mapCenter = {
                 lat: position.coords.latitude,
@@ -74,6 +79,7 @@ export default class Map extends Component {
         });
     };
 
+    //when places are updated, reload markers
     componentWillReceiveProps = nextProps => {
         //console.log("props", nextProps.places);
         this.createMarkers(nextProps.places, this.state.map);
@@ -113,6 +119,7 @@ export default class Map extends Component {
         });
     }
 
+    //Create and display map markers
     createMarkers = (places, map) => {
         // console.log("place", places);
         this.clearMarkers();
@@ -130,11 +137,11 @@ export default class Map extends Component {
                 animation: window.google.maps.Animation.DROP
             });
 
+            //Constructing info window
             const placeContent = `
             <h2>${place.name}</h2>
             <p>${place.vicinity}</p>
           `;
-            //console.log(place)
 
             const infoWindow = new window.google.maps.InfoWindow({
                 content: placeContent
@@ -153,6 +160,7 @@ export default class Map extends Component {
         }
     };
 
+    //Clears map markers when called
     clearMarkers = () => {
         let markers = this.state.markers;
 
@@ -162,6 +170,7 @@ export default class Map extends Component {
         markers.length = 0;
     };
 
+    //Take data from modal and create new restaurant
     createNewPlace = (newPlace) => {
         let map = this.state.map
         let place = newPlace
@@ -179,8 +188,10 @@ export default class Map extends Component {
         console.log(this.state.newPlace)
         this.loadPlaces();
     }
+
+    // retrieves all nearby restaurants within the stated radius and sends results to App.js
     loadPlaces = () => {
-      let service = new window.google.maps.places.PlacesService(this.state.map);
+        let service = new window.google.maps.places.PlacesService(this.state.map);
         service.nearbySearch({
                 location: this.state.mapCenter,
                 radius: "1500",

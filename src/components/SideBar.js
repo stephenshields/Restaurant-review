@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { Card, Accordion } from 'react-bootstrap'
 import RestaurantCard from '../components/RestaurantCard'
 
-export default class SideBar extends Component {  
-  
+export default class SideBar extends Component {
+
     render() {
+        //Places restaurant cards in the SideBar.js
         const restaurants = this.props.places.map(restaurant => {
             // let averageRating = 0
             // for (var i = 0; i < restaurant.ratings.length; i++) { 
@@ -23,10 +24,10 @@ export default class SideBar extends Component {
             />
             )
         })
-         //console.log(restaurants)
+        //console.log(restaurants)
 
         return (
-          <Accordion  >
+            <Accordion  >
             <div 
           style={{
           width: '100%',
