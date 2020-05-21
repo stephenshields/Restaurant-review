@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button,Modal } from 'react-bootstrap';
-import { Formik, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 //Yup validation

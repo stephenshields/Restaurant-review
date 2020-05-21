@@ -13,7 +13,7 @@ class Filter extends Component {
 // Setting the filter to the selected star
     changeRating(newFilter) {
         this.setState({ filter: newFilter });
-        this.props.setFilter(newFilter);
+        this.props.setFilter(newFilter, this.props.keyNum);
     }
 
     render() {

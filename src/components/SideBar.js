@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Accordion } from 'react-bootstrap'
+import { Accordion } from 'react-bootstrap'
 import RestaurantCard from '../components/RestaurantCard'
 
 export default class SideBar extends Component {

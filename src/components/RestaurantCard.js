@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Accordion, Button } from 'react-bootstrap'
+import { Card, Accordion} from 'react-bootstrap'
 import Ratings from 'react-ratings-declarative'
 import axios from 'axios'
 import Stars from '../components/Stars'
@@ -10,7 +10,7 @@ class RestaurantCard extends Component {
         apiKey: this.props.apiKey,
         reviews: {
             reviews: [{
-                author_name: "  ",
+                author_name: "	",
                 text: "No reviews found."
             }]
         }
@@ -18,14 +18,12 @@ class RestaurantCard extends Component {
 
 
     componentDidMount = () => {
-        //console.log("i am running")
-        //Proxyurl used to bypass Coors error while running in localhost
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
         //Grabs place url
         const url = ("https://maps.googleapis.com/maps/api/place/details/json?place_id=" + this.props.cardId +
             "&fields=reviews&key=" + this.state.apiKey);
 
-        //display reviews from url
+//display reviews from url
         axios.get(url)
             .then(res => {
                 const reviews = res.data.result;
@@ -42,33 +40,35 @@ class RestaurantCard extends Component {
     }
 
     render() {
-        //loop through the reviews and display each
+//loop through the reviews and display each
         const reviews = this.state.reviews.reviews.map(review => {
+            // console.log("review",review)
             return (
                 <div style={{
-                    marginTop: '20px',
-                    marginBottom: '20px',
-                    padding: '10px',
-                    backgroundColor: 'rgba(128, 128, 128, 0.1)'}}>
+                	marginTop: '20px',
+                	marginBottom: '20px',
+                	padding: '10px',
+                	backgroundColor: 'rgba(128, 128, 128, 0.1)'}}>
                 <Ratings
-            rating={review.rating}
-            widgetDimensions="1.5rem"
-            widgetSpacings=".1rem"
-            widgetRatedColors="#273baa"
-          >
-            <Ratings.Widget />
-            <Ratings.Widget />
-            <Ratings.Widget />
-            <Ratings.Widget />
-            <Ratings.Widget />
-          </Ratings>
-        <Card.Text>{review.text}</Card.Text>
-        <Card.Subtitle className="text-muted">{review.author_name}</Card.Subtitle>
-        <Card.Text className="text-muted">{review.relative_time_description}</Card.Text>
-        </div>
+                key={review.time}
+	        rating={review.rating}
+	        widgetDimensions="1.5rem"
+	        widgetSpacings=".1rem"
+	        widgetRatedColors="#273baa"
+	      >
+	        <Ratings.Widget />
+	        <Ratings.Widget />
+	        <Ratings.Widget />
+	        <Ratings.Widget />
+	        <Ratings.Widget />
+	      </Ratings>
+	    <Card.Text>{review.text}</Card.Text>
+	    <Card.Subtitle className="text-muted">{review.author_name}</Card.Subtitle>
+	    <Card.Text className="text-muted">{review.relative_time_description}</Card.Text>
+	    </div>
             )
         })
-        //display cards in sidebar & handling accordion
+//display cards in sidebar & handling accordion
         return (
             <div  
     style={{padding: '.3em'}}
@@ -77,30 +77,30 @@ class RestaurantCard extends Component {
     style={{backgroundColor: '#21242b'}} 
     text='white'
     >
-      <Accordion.Toggle onClick={this.handleClick} as={Card.Body} variant="link" eventKey={this.props.cardId} 
-      style={{cursor: 'pointer'}} 
-      >
-        <Card.Title>{this.props.name}</Card.Title>
-        <Stars rating={this.props.rating}/>
-        <Card.Text>{this.props.address}</Card.Text>
-        </Accordion.Toggle>
-        <Accordion.Collapse eventKey={this.props.cardId}>
-        <div>
-        <Card.Img style={{padding: '15px'}} src={"https://maps.googleapis.com/maps/api/streetview?location=" + this.props.address +
-        "&size=360x180&key=" + this.state.apiKey}/>
-        <div style={{padding: '15px'}}>{reviews}</div>
-        <Card.Subtitle className="mb-2 text-center text-muted">Add A Review...</Card.Subtitle>
-        <AddReview fetchReview={this.fetchReview} />
-        </div>
-        </Accordion.Collapse>
-    </Card>
+	  <Accordion.Toggle onClick={this.handleClick} as={Card.Body} variant="link" eventKey={this.props.cardId} 
+	  style={{cursor: 'pointer'}} 
+	  >
+	    <Card.Title>{this.props.name}</Card.Title>
+	    <Stars rating={this.props.rating}/>
+	    <Card.Text>{this.props.address}</Card.Text>
+	    </Accordion.Toggle>
+	    <Accordion.Collapse eventKey={this.props.cardId}>
+	    <div>
+	    <Card.Img style={{padding: '15px'}} src={"https://maps.googleapis.com/maps/api/streetview?location=" + this.props.address +
+	    "&size=360x180&key=" + this.state.apiKey}/>
+	    <div style={{padding: '15px'}}>{reviews}</div>
+	    <Card.Subtitle className="mb-2 text-center text-muted">Add A Review...</Card.Subtitle>
+	    <AddReview fetchReview={this.fetchReview} />
+	    </div>
+	    </Accordion.Collapse>
+	</Card>
     </div>
         )
     }
 
-    //Retrieve new reviews from AddReview.js
+//Retrieve new reviews from AddReview.js
     fetchReview = newReview => {
-        console.log('before', this.state.reviews)
+    	console.log('before',this.state.reviews)
         this.setState({
             reviews: {
                 reviews: [
@@ -109,7 +109,7 @@ class RestaurantCard extends Component {
                 ]
             }
         })
-        console.log('after ', this.state.reviews)
+        console.log('after ',this.state.reviews)
     }
 
 }

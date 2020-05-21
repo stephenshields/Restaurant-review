@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
 import AddRestaurant from '../components/AddRestaurant';
 
 export default class Map extends Component {

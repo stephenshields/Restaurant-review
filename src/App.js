@@ -9,15 +9,17 @@ import SideBar from './components/SideBar'
 
 class App extends Component {
 
-  state = {
-    places: restaurantData.restaurants,
-    filteredPlaces: [],
-    filter: 0,
-    apiKey: 'AIzaSyAFgDq1kt_7e-81aC8_hmRIZhEuxCZQyoI'
-  };  
-  render() {
-    return (
-        <div>
+    state = {
+        places: restaurantData.restaurants,
+        filteredPlaces: [],
+        filterX: 0,
+        filterY: 5,
+        filter: 0,
+        apiKey: 'AIzaSyAFgDq1kt_7e-81aC8_hmRIZhEuxCZQyoI'
+    };
+    render() {
+        return (
+            <div>
           <NavBar setFilter={this.setFilter}/>
             <Row style={{margin: 0}}>
               <Col sm={8} style={{padding: 0}}>
@@ -30,30 +32,36 @@ class App extends Component {
             </Col>
           </Row>  
       </div>
-    );
-  }
+        );
+    }
 
-  fetchPlaces = places => {
-    this.setState({
-  places: places
-})
+    fetchPlaces = places => {
+        this.setState({
+            places: places
+        })
 
-    // console.log(this.state.places)
-    this.filterPlaces(places);
-  };
+        // console.log(this.state.places)
+        this.filterPlaces(places);
+    };
 
-  filterPlaces = places => {
-    const filtered = places.filter(place => place.rating >= this.state.filter)
-    this.setState({filteredPlaces: filtered})
-    console.log(this.state.filteredPlaces)
-    this.setState({places: this.state.filteredPlaces})
-  }
+    filterPlaces = places => {
+        const filtered = places.filter(place => place.rating > this.state.filterX && place.rating < this.state.filterY)
+        this.setState({ filteredPlaces: filtered })
+        console.log(this.state.filteredPlaces)
+        this.setState({ places: this.state.filteredPlaces })
+    }
 
-  setFilter = filter => {
-    this.setState({
-      filter: filter
-    })
-  }
+    setFilter = (filter, keyNum) => {
+        if (keyNum === "1") {
+            this.setState({
+                filterX: filter
+            })
+        } else {
+            this.setState({
+                filterY: filter
+            })
+        }
+    }
 }
 
 export default App;
