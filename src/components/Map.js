@@ -1,13 +1,17 @@
 import React, { Component } from "react";
+import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
+import AddRestaurant from '../components/AddRestaurant';
 
 export default class Map extends Component {
     state = {
         mapCenter: { lat: 53.999980, lng: -6.403740 },
         map: null,
-        newPlace: {},
+        newPlace: null,
+        geometry: null,
         newCenter: {},
         activePlace: {},
-        markers: []
+        markers: [],
+        modalShow: false
     };
     componentDidMount = () => {
         let map = new window.google.maps.Map(this.refs.map, {
@@ -18,15 +22,6 @@ export default class Map extends Component {
 
         this.setState({ map });
 
-        const clearMarkers = () => {
-            let markers = this.state.markers;
-
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(null);
-            }
-            markers.length = 0;
-        };
-
         map.addListener("dragend", event => {
             const mapCenter = {
                 lat: map.getCenter().lat(),
@@ -34,11 +29,8 @@ export default class Map extends Component {
             }
             console.log(mapCenter);
 
-            this.setState({
-                mapCenter: { mapCenter }
-            });
-            clearMarkers();
-            
+            this.setState({ mapCenter });
+
             let service = new window.google.maps.places.PlacesService(map);
             service.nearbySearch({
                     location: mapCenter,
@@ -47,11 +39,26 @@ export default class Map extends Component {
                 },
                 (results, status) => {
                     this.props.fetchPlaces(results);
-                    // console.log("places", results);
+                    console.log("places", results);
                 }
             );
 
         });
+
+        map.addListener("click", event => {
+            const location = {
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng()
+            }
+
+            console.log("click", location);
+
+            this.setState({
+                geometry: { location }
+            });
+            this.setState({ modalShow: true })
+            console.log(this.state.modalShow)
+        })
 
         navigator.geolocation.getCurrentPosition(position => {
             const mapCenter = {
@@ -63,18 +70,7 @@ export default class Map extends Component {
             this.setState({ mapCenter });
 
             this.homeMarker(mapCenter, map);
-
-            let service = new window.google.maps.places.PlacesService(map);
-            service.nearbySearch({
-                    location: mapCenter,
-                    radius: "1500",
-                    type: ["restaurant"]
-                },
-                (results, status) => {
-                    this.props.fetchPlaces(results);
-                    // console.log("places", results);
-                }
-            );
+            this.loadPlaces();
         });
     };
 
@@ -88,6 +84,11 @@ export default class Map extends Component {
             <div>
         <div ref="map" 
             style={{ width: "100%", height: "93vh" }} />
+            <AddRestaurant
+        createNewPlace={this.createNewPlace}
+        show={this.state.modalShow}
+        onHide={() => this.setState({modalShow: false})}
+      />
       </div>
         );
     }
@@ -112,9 +113,9 @@ export default class Map extends Component {
         });
     }
 
-
     createMarkers = (places, map) => {
         // console.log("place", places);
+        this.clearMarkers();
         let markers = [];
 
         for (var i = 0, place;
@@ -133,7 +134,7 @@ export default class Map extends Component {
             <h2>${place.name}</h2>
             <p>${place.vicinity}</p>
           `;
-          //console.log(place)
+            //console.log(place)
 
             const infoWindow = new window.google.maps.InfoWindow({
                 content: placeContent
@@ -152,4 +153,47 @@ export default class Map extends Component {
         }
     };
 
+    clearMarkers = () => {
+        let markers = this.state.markers;
+
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        markers.length = 0;
+    };
+
+    createNewPlace = (newPlace) => {
+        let map = this.state.map
+        let place = newPlace
+        let coords = this.state.geometry
+        console.log(coords)
+        this.setState({
+            newPlace: {
+                name: place.name,
+                vicinity: place.vicinity,
+                rating: place.rating,
+                place_id: place.name,
+                geometry: coords
+            }
+        });
+        console.log(this.state.newPlace)
+        this.loadPlaces();
+    }
+    loadPlaces = () => {
+      let service = new window.google.maps.places.PlacesService(this.state.map);
+        service.nearbySearch({
+                location: this.state.mapCenter,
+                radius: "1500",
+                type: ["restaurant"]
+            },
+            (results, status) => {
+                let result = results
+                if (this.state.newPlace !== null) {
+                    result.push(this.state.newPlace)
+                }
+                this.props.fetchPlaces(result);
+                console.log("places", result);
+            }
+        );
+    }
 }

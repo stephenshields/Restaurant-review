@@ -10,10 +10,11 @@ export default class SideBar extends Component {
             // for (var i = 0; i < restaurant.ratings.length; i++) { 
             //   averageRating = averageRating += restaurant.ratings[i].stars
             // }
-            console.log(restaurant)
+            //console.log(restaurant)
             return (
                 <RestaurantCard 
             key={restaurant.place_id}
+            apiKey={this.props.apiKey}
             name={restaurant.name} 
             rating={restaurant.rating}
             address={restaurant.vicinity}
@@ -22,10 +23,10 @@ export default class SideBar extends Component {
             />
             )
         })
-         console.log(restaurants)
+         //console.log(restaurants)
 
         return (
-          <Accordion >
+          <Accordion  >
             <div 
           style={{
           width: '100%',
