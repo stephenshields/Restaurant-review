@@ -41,16 +41,17 @@ class RestaurantCard extends Component {
 
     render() {
 //loop through the reviews and display each
-        const reviews = this.state.reviews.reviews.map(review => {
+        const reviews = this.state.reviews.reviews.map((review, index) => {
             // console.log("review",review)
             return (
-                <div style={{
+                <div 
+                key={index}
+                style={{
                 	marginTop: '20px',
                 	marginBottom: '20px',
                 	padding: '10px',
                 	backgroundColor: 'rgba(128, 128, 128, 0.1)'}}>
                 <Ratings
-                key={review.time}
 	        rating={review.rating}
 	        widgetDimensions="1.5rem"
 	        widgetSpacings=".1rem"

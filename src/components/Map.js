@@ -104,7 +104,10 @@ export default class Map extends Component {
             map,
             position,
             animation: window.google.maps.Animation.DROP,
-            icon: "http://plebeosaur.us/etc/map/bluedot_retina.png"
+            icon: {
+      path: window.google.maps.SymbolPath.CIRCLE,
+      scale: 6
+  }
         });
 
         const infoWindow = new window.google.maps.InfoWindow({
@@ -171,7 +174,6 @@ export default class Map extends Component {
 
     //Take data from modal and create new restaurant
     createNewPlace = (newPlace) => {
-        let map = this.state.map
         let place = newPlace
         let coords = this.state.geometry
         console.log(coords)

@@ -45,7 +45,7 @@ class App extends Component {
     };
 
     filterPlaces = places => {
-        const filtered = places.filter(place => place.rating > this.state.filterX && place.rating < this.state.filterY)
+        const filtered = places.filter(place => place.rating >= this.state.filterX && place.rating <= this.state.filterY)
         this.setState({ filteredPlaces: filtered })
         console.log(this.state.filteredPlaces)
         this.setState({ places: this.state.filteredPlaces })
