@@ -1,26 +1,27 @@
 import React from 'react'
-import { Navbar, Col} from 'react-bootstrap'
+import { Navbar, Col, Row, Container } from 'react-bootstrap'
 import Filter from '../components/Filter'
 
 function NavBar(props) {
-    return (
-        <Navbar 
+    return ( 
+		<Container
+		fluid 
 		variant="dark"
 		style={{
 			backgroundColor: '#21242b',
-		}}> 
-		<Col xs={3} >
-	    	<Navbar.Brand href="#home">Lets Eat</Navbar.Brand>
-	    </Col>
-	    <Col xs={9} >
-		     <Navbar.Collapse className="justify-content-end" >
+		}}>
+		<Row sm={1} md={2}>
+			<Col md={8} sm={6}>
+		    	<h3 style={{color: 'white'}} href="#home">Lets Eat</h3>
+		    </Col>
+		    <Col md={4} sm={6}>
 			    <Filter
 			    key="1"
 			    keyNum="1"
 			    setFilter={props.setFilter}
 			    >
 			    </Filter>
-			    <Navbar.Text className="pr-2 pl-2">
+			    <Navbar.Text style={{color: 'gray'}} className="pr-2 pl-2">
 			     -
 			     </Navbar.Text>
 			    <Filter
@@ -28,10 +29,9 @@ function NavBar(props) {
 			    keyNum="2"
 			    setFilter={props.setFilter}>
 			    </Filter>
-		     </Navbar.Collapse>
-	     </Col>
-  </Navbar>
-
+		     </Col>
+	     </Row>
+	     </Container>
     )
 }
 
